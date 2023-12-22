@@ -27,6 +27,11 @@ export function Home() {
     setTaskDetails('')
   }
 
+  function handleTaskRemove(details: string){
+    setTasks((prevState) => 
+      prevState.filter((task) => task.details !== details))
+  }
+
   return (
     <>
       <Header />
@@ -62,7 +67,7 @@ export function Home() {
           data={tasks}
           keyExtractor={(item) => item.details}
           renderItem={({ item }) => (
-            <Task key={item.details} details={item.details} isComplete={item.isComplete}/>
+            <Task key={item.details} details={item.details} isComplete={item.isComplete} onRemove={() => handleTaskRemove(item.details)}/>
           )}
         />
         ): (
