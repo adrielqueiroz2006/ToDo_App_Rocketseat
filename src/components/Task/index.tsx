@@ -1,0 +1,24 @@
+import React from 'react'
+
+import { Text, View } from 'react-native'
+
+import { styles } from './styles'
+
+import Completed from '../../assets/Completed.svg'
+import Circle from '../../assets/Circle.svg'
+import Trash from '../../assets/Trash.svg'
+
+type Props = {
+  details: string
+  isComplete: boolean
+}
+
+export function Task({ details, isComplete }: Props) {
+  return (
+    <View style={styles.container}>
+      {isComplete ? (<Completed />) : (<Circle />)}
+      <Text style={[styles.taskDetails, isComplete && styles.taskCompleted]}> {details} </Text>
+      <Trash height={18} width={18} />
+    </View>
+  )
+}
