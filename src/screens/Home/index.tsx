@@ -44,10 +44,10 @@ export function Home() {
 
   function handleTaskComplete(details: string) {
     setTasks((tasks) => tasks.map((task) =>
-    task.details === details
-      ? { ...task, isComplete: !task.isComplete }
-      : task
-  ))
+      task.details === details
+        ? { ...task, isComplete: !task.isComplete }
+        : task
+    ))
   }
 
   return (
