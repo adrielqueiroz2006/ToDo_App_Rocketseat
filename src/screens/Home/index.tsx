@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 import { Header } from '../../components/Header'
@@ -16,6 +16,16 @@ type TaskProps = {
 export function Home() {
   const [taskDetails, setTaskDetails] = useState('')
   const [tasks, setTasks] = useState<TaskProps[]>([])
+  const [completedTasks, setCompletedTasks] = useState(0)
+
+  useEffect(()=>{
+    const countTasks = tasks.reduce((count, task) => {
+      if (task.isComplete) return count + 1
+      return count
+    }, 0);
+
+    setCompletedTasks(countTasks)
+  })
 
   function handleAddTask(){
     const task = {
@@ -23,7 +33,7 @@ export function Home() {
       isComplete: false
     }
 
-    setTasks((prevState) => [...prevState, task] as TaskProps[])
+    setTasks((prevState) => [...prevState, task])
     setTaskDetails('')
   }
 
@@ -61,12 +71,12 @@ export function Home() {
         <View style={styles.tasksInfo}>
           <View style={styles.infoType}>
             <Text style={styles.title}>Criadas</Text>
-            <Text style={styles.quantity}>0</Text>
+            <Text style={styles.quantity}>{tasks.length}</Text>
           </View>
 
           <View style={styles.infoType}>
             <Text style={[styles.title, {color: '#8284FA'}]}>Concluídas</Text>
-            <Text style={styles.quantity}>0</Text>
+            <Text style={styles.quantity}>{completedTasks}</Text>
           </View>
         </View>
         
@@ -81,7 +91,6 @@ export function Home() {
         ): (
           <EmptyTasks />
         )}
-        
       </View>
     </>
   )
