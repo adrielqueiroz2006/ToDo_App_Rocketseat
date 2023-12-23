@@ -28,6 +28,12 @@ export function Home() {
   })
 
   function handleAddTask(){
+    const isEqual = tasks.find(task  => task.details === taskDetails);
+  
+    if(taskDetails.trim() === '') return Alert.alert('Texto inválido', 'Informe um texto para essa tarefa!')
+
+    if(isEqual) return Alert.alert('Tarefa Repetida', 'Já existe uma tarefa com esse texto!');
+
     const task = {
       details: taskDetails,
       isComplete: false
