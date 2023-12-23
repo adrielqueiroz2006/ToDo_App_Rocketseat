@@ -32,6 +32,14 @@ export function Home() {
       prevState.filter((task) => task.details !== details))
   }
 
+  function handleTaskComplete(details: string) {
+    setTasks((tasks) => tasks.map((task) =>
+    task.details === details
+      ? { ...task, isComplete: !task.isComplete }
+      : task
+  ))
+  }
+
   return (
     <>
       <Header />
@@ -67,7 +75,7 @@ export function Home() {
           data={tasks}
           keyExtractor={(item) => item.details}
           renderItem={({ item }) => (
-            <Task key={item.details} details={item.details} isComplete={item.isComplete} onRemove={() => handleTaskRemove(item.details)}/>
+            <Task key={item.details} details={item.details} isComplete={item.isComplete} onRemove={() => handleTaskRemove(item.details)} onComplete={() => handleTaskComplete(item.details)}/>
           )}
         />
         ): (

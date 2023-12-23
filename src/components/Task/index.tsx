@@ -12,12 +12,13 @@ type Props = {
   details: string
   isComplete: boolean
   onRemove: ()=> void
+  onComplete: ()=> void
 }
 
-export function Task({ details, isComplete, onRemove }: Props) {
+export function Task({ details, isComplete, onRemove, onComplete }: Props) {
   return (
     <View style={styles.container}>
-      {isComplete ? (<Completed />) : (<Circle />)}
+      {isComplete ? (<Completed onPress={onComplete}/>) : (<Circle onPress={onComplete}/>)}
       <Text style={[styles.taskDetails, isComplete && styles.taskCompleted]}> {details} </Text>
       <Trash height={18} width={18} onPress={onRemove}/>
     </View>
